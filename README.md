@@ -76,15 +76,18 @@ Thực hiện các thay đổi
 Commit và push (git commit -m 'Thêm tính năng' && git push origin branch-moi)
 Tạo một Pull Request
 
-🧑‍💻 Tác Giả 🧑‍💻
-Phạm Cao Chí Thành - Nhà phát triển chính
-Ngô Bích Hằng - Quản lý dự án
-💬 Liên Hệ & Hỗ Trợ 💬
+## 🧑‍💻 **Tác Giả** 🧑‍💻
+- **Phạm Cao Chí Thành** - Nhà phát triển chính  
+- **Ngô Bích Hằng** - Quản lý dự án  
+
+## 💬 **Liên Hệ & Hỗ Trợ** 💬
 Mọi câu hỏi hoặc ý kiến đóng góp, vui lòng liên hệ với chúng tôi:
 
-Email: example@domain.com
-LinkedIn: Phạm Cao Chí Thành
-GitHub: Phạm Cao Chí Thành
+- **Email**: [example@domain.com](mailto:example@domain.com)  
+- **LinkedIn**: [Phạm Cao Chí Thành](https://www.linkedin.com/in/username)  
+- **GitHub**: [Phạm Cao Chí Thành](https://github.com/username)  
+
 Hãy cùng khám phá tiềm năng của công nghệ blockchain và trở thành một phần của cuộc cách mạng phi tập trung. Xây dựng tương lai từ hôm nay! 🏗️🔗✨
+
 
 Enjoy Coding! 😄
