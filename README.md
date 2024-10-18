@@ -85,8 +85,7 @@ Mọi câu hỏi hoặc ý kiến đóng góp, vui lòng liên hệ với chúng
 
 - **Email**: [chithanhphamj@gmail.com](mailto:chithanhphamj@gmail.com)
 - **Email**: [bichhang18122004@gmail.com](mailto:bichhang18122004@gmail.com)  
-- **LinkedIn**: [Phạm Cao Chí Thành](https://www.linkedin.com/in/username)  
-- **GitHub**: [Phạm Cao Chí Thành](https://github.com/username)  
+- **GitHub**: [Phạm Cao Chí Thành](https://github.com/JayT1912)  
 
 Hãy cùng khám phá tiềm năng của công nghệ blockchain và trở thành một phần của cuộc cách mạng phi tập trung. Xây dựng tương lai từ hôm nay! 🏗️🔗✨
 
