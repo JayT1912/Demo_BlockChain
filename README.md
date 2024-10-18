@@ -83,7 +83,8 @@ Tạo một Pull Request
 ## 💬 **Liên Hệ & Hỗ Trợ** 💬
 Mọi câu hỏi hoặc ý kiến đóng góp, vui lòng liên hệ với chúng tôi:
 
-- **Email**: [chithanhphamj@gmail.com](mailto:chithanhphamj@gmail.com)  
+- **Email**: [chithanhphamj@gmail.com](mailto:chithanhphamj@gmail.com)
+- **Email**: [bichhang18122004@gmail.com](mailto:bichhang18122004@gmail.com)  
 - **LinkedIn**: [Phạm Cao Chí Thành](https://www.linkedin.com/in/username)  
 - **GitHub**: [Phạm Cao Chí Thành](https://github.com/username)  
 
