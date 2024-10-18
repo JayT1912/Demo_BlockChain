@@ -1,0 +1,193 @@
+document.addEventListener('DOMContentLoaded', function () {
+    let peers = ['A', 'B', 'C'];
+
+    // Transactions for each block (các giao dịch giống nhau cho tất cả các peer)
+    const blockTransactions = {
+        block1: [],
+        block2: [
+            { amount: 10.00, from: "Anders", to: "Sophia" },
+            { amount: 20.00, from: "Anders", to: "Lucas" },
+            { amount: 15.00, from: "Anders", to: "Emily" },
+            { amount: 15.00, from: "Anders", to: "Madison" }
+        ],
+        block3: [
+            { amount: 10.00, from: "Emily", to: "Jackson" },
+            { amount: 5.00, from: "Madison", to: "Jackson" },
+            { amount: 20.00, from: "Lucas", to: "Grace" }
+        ],
+        block4: [
+            { amount: 15.00, from: "Jackson", to: "Ryan" },
+            { amount: 5.00, from: "Emily", to: "Madison" },
+            { amount: 8.00, from: "Sophia", to: "Jackson" }
+        ],
+        block5: [
+            { amount: 2.00, from: "Jackson", to: "Alexander" },
+            { amount: 6.00, from: "Ryan", to: "Carter" },
+            { amount: 4.00, from: "Ryan", to: "Riley" },
+            { amount: 9.95, from: "Grace", to: "Katherine" }
+        ]
+    };
+
+    // Tạo block cho từng peer
+    peers.forEach(peer => {
+        for (let i = 1; i <= 5; i++) {
+            let blockId = `block${peer}${i}`;
+            let peerElement = document.getElementById(`peer${peer}`);
+            let blockElement = document.createElement('div');
+            blockElement.className = 'block';
+
+            // Đặt giá trị coinbase riêng cho block 1 là $100.0012, các block khác là $100.00
+            let coinbaseValue = i === 1 ? "100.00" : "100.00"; 
+            let coinbaseTo = "Anders"; // Giữ nguyên người nhận là Anders
+
+            blockElement.innerHTML = `
+                <label>Block:</label>
+                <input type="text" value="${i}" readonly>
+
+                <label>Nonce:</label>
+                <input type="text" id="nonce${blockId}" value="0" readonly>
+
+                <label>Coinbase:</label>
+                <div style="display: flex; align-items: center;">
+                    <span>$</span>
+                    <input type="text" id="coinbaseAmount${blockId}" value="${coinbaseValue}" style="width: 80px; margin-left: 5px;">
+                    <span style="margin-left: 10px;">&rarr;</span> <!-- Sử dụng mã HTML cho mũi tên phải -->
+                    <input type="text" id="coinbaseRecipient${blockId}" value="${coinbaseTo}" style="width: 150px; margin-left: 10px;">
+                </div>
+
+                <label>Tx:</label>
+                <table id="tx${blockId}">
+                </table>
+
+                <label>Prev:</label>
+                <input type="text" id="prevHash${blockId}" value="${i === 1 ? '0000000000000000' : ''}" readonly>
+
+                <label>Hash:</label>
+                <input type="text" id="hash${blockId}" readonly>
+
+                <button onclick="mineBlock('${blockId}', '${peer}', ${i})">Mine</button>
+            `;
+            peerElement.appendChild(blockElement);
+
+            // Thêm giao dịch cho từng block (giống nhau cho tất cả các peer)
+            let txTable = document.getElementById(`tx${blockId}`);
+            let transactions = blockTransactions[`block${i}`];
+            if (transactions) {
+                transactions.forEach(tx => {
+                    let row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td>$<input type="text" value="${tx.amount}"></td>
+                        <td>From: <input type="text" value="${tx.from}"></td>
+                        <td>To: <input type="text" value="${tx.to}"></td>
+                    `;
+                    txTable.appendChild(row);
+                });
+            }
+
+            // Lắng nghe sự kiện thay đổi trong giao dịch hoặc coinbase
+            document.querySelectorAll(`#tx${blockId} input[type="text"]`).forEach(input => {
+                input.addEventListener('input', () => updateHash(blockId, peer));
+            });
+
+            document.getElementById(`coinbaseAmount${blockId}`).addEventListener('input', () => updateHash(blockId, peer));
+            document.getElementById(`coinbaseRecipient${blockId}`).addEventListener('input', () => updateHash(blockId, peer));
+
+            // Tự động mine block đầu tiên ngay khi tạo
+            if (i === 1) {
+                autoMineBlock(blockId, peer);
+            } else {
+                // Cập nhật hash cho các block tiếp theo
+                updateHash(blockId, peer);
+            }
+        }
+    });
+});
+
+function autoMineBlock(blockId, peer) {
+    let nonce = 0;
+
+    // Lấy dữ liệu từ coinbase transaction
+    let coinbaseAmount = document.getElementById(`coinbaseAmount${blockId}`).value;
+    let coinbaseRecipient = document.getElementById(`coinbaseRecipient${blockId}`).value;
+    let coinbaseData = `${coinbaseAmount} -> ${coinbaseRecipient}`;
+
+    // Lấy dữ liệu từ các giao dịch thông thường
+    let txData = Array.from(document.querySelectorAll(`#tx${blockId} input[type="text"]`)).map(input => input.value).join('');
+    let prevHash = document.getElementById(`prevHash${blockId}`).value;
+    let hash;
+
+    console.log(`Mining block ${blockId} with coinbaseData: ${coinbaseData}, txData: ${txData}, and prevHash: ${prevHash}`);
+
+    do {
+        nonce++;
+        hash = CryptoJS.SHA256(nonce + coinbaseData + txData + prevHash).toString();
+        console.log(`Nonce: ${nonce}, Hash: ${hash}`);
+    } while (!hash.startsWith('0000'));
+
+    document.getElementById(`nonce${blockId}`).value = nonce;
+    document.getElementById(`hash${blockId}`).value = hash;
+
+    updateNextBlockPrevHash(peer, blockId, hash);
+}
+
+// Hàm cập nhật previousHash cho block tiếp theo
+function updateNextBlockPrevHash(peer, currentBlockId, hash) {
+    let blockNumber = parseInt(currentBlockId.replace(`block${peer}`, '')); // Lấy số block
+    if (blockNumber < 5) {
+        let nextBlockId = `block${peer}${blockNumber + 1}`;
+        let nextPrevHashElement = document.getElementById(`prevHash${nextBlockId}`);
+        if (nextPrevHashElement) {
+            nextPrevHashElement.value = hash; // Cập nhật prevHash cho block tiếp theo
+            updateHash(nextBlockId, peer); // Cập nhật hash cho block tiếp theo
+        }
+    }
+}
+
+// Hàm cập nhật hash cho block hiện tại
+function updateHash(blockId, peer) {
+    let nonce = document.getElementById(`nonce${blockId}`).value;
+
+    // Lấy dữ liệu từ coinbase transaction
+    let coinbaseAmount = document.getElementById(`coinbaseAmount${blockId}`).value;
+    let coinbaseRecipient = document.getElementById(`coinbaseRecipient${blockId}`).value;
+    let coinbaseData = `${coinbaseAmount} -> ${coinbaseRecipient}`;
+
+    // Lấy dữ liệu từ các giao dịch thông thường
+    let txData = Array.from(document.querySelectorAll(`#tx${blockId} input[type="text"]`)).map(input => input.value).join('');
+
+    let prevHash = document.getElementById(`prevHash${blockId}`).value;
+
+    // Tính toán hash bao gồm cả coinbase transaction
+    let hash = CryptoJS.SHA256(nonce + coinbaseData + txData + prevHash).toString();
+    document.getElementById(`hash${blockId}`).value = hash;
+
+    updateNextBlockPrevHash(peer, blockId, hash);
+}
+
+function mineBlock(blockId, peer) {
+    let nonce = 0;
+
+    // Lấy dữ liệu từ coinbase transaction
+    let coinbaseAmount = document.getElementById(`coinbaseAmount${blockId}`).value;
+    let coinbaseRecipient = document.getElementById(`coinbaseRecipient${blockId}`).value;
+    let coinbaseData = `${coinbaseAmount} -> ${coinbaseRecipient}`;
+
+    // Lấy dữ liệu từ các giao dịch thông thường
+    let txData = Array.from(document.querySelectorAll(`#tx${blockId} input[type="text"]`)).map(input => input.value).join('');
+
+    let prevHash = document.getElementById(`prevHash${blockId}`).value;
+    let hash;
+
+    console.log(`Mining block ${blockId} with coinbaseData: ${coinbaseData}, txData: ${txData}, and prevHash: ${prevHash}`);
+
+    do {
+        nonce++;
+        hash = CryptoJS.SHA256(nonce + coinbaseData + txData + prevHash).toString();
+        console.log(`Nonce: ${nonce}, Hash: ${hash}`);
+    } while (!hash.startsWith('0000'));
+
+    document.getElementById(`nonce${blockId}`).value = nonce;
+    document.getElementById(`hash${blockId}`).value = hash;
+
+    updateNextBlockPrevHash(peer, blockId, hash);
+}
