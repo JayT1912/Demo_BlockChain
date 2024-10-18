@@ -53,9 +53,9 @@ Thực hiện các thay đổi
 Commit và push (git commit -m 'Thêm tính năng' && git push origin branch-moi)
 Tạo một Pull Request
 
-## 🧑‍💻 **Tác Giả** 🧑‍💻
-- **Phạm Cao Chí Thành** - Nhà phát triển chính  
-- **Ngô Bích Hằng** - Quản lý dự án  
+## 🧑‍💻 **Đồng Tác Giả** 🧑‍💻
+- **Phạm Cao Chí Thành**
+- **Ngô Bích Hằng**
 
 ## 💬 **Liên Hệ & Hỗ Trợ** 💬
 Mọi câu hỏi hoặc ý kiến đóng góp, vui lòng liên hệ với chúng tôi:
