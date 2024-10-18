@@ -48,6 +48,8 @@ Một khi dữ liệu đã được thêm vào block và khai thác, nó trở n
 🎯 Tầm Nhìn & Mục Tiêu 🎯
 Công nghệ blockchain không chỉ là một kỳ quan công nghệ mà còn là một cách tư duy mới về sự tin tưởng, minh bạch và bảo mật trong thế giới số. Kiệt Tác Blockchain được tạo ra để truyền cảm hứng và giúp bạn hiểu rõ hơn về các khái niệm này, đồng thời tạo ra một nền tảng để bạn có thể sáng tạo và đóng góp vào tương lai phi tập trung.
 
+---
+
 🤝 Đóng Góp 🤝
 Chúng tôi hoan nghênh mọi đóng góp! Dù là sửa lỗi, cải thiện tài liệu hay thêm các tính năng mới, sự hỗ trợ của bạn đều được đánh giá cao. Để đóng góp:
 
