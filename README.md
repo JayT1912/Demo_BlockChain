@@ -51,11 +51,11 @@ Công nghệ blockchain không chỉ là một kỳ quan công nghệ mà còn l
 🤝 Đóng Góp 🤝
 Chúng tôi hoan nghênh mọi đóng góp! Dù là sửa lỗi, cải thiện tài liệu hay thêm các tính năng mới, sự hỗ trợ của bạn đều được đánh giá cao. Để đóng góp:
 
-Fork repository
-Tạo một nhánh mới (git checkout -b branch-moi)
-Thực hiện các thay đổi
-Commit và push (git commit -m 'Thêm tính năng' && git push origin branch-moi)
-Tạo một Pull Request
+- **Fork repository**  
+- **Tạo một nhánh mới** (`git checkout -b branch-moi`)  
+- **Thực hiện các thay đổi**  
+- **Commit và push** (`git commit -m 'Thêm tính năng' && git push origin branch-moi`)  
+- **Tạo một Pull Request**
 
 ---
 
